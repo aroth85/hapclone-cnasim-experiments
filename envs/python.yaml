@@ -1,0 +1,10 @@
+channels:
+   - conda-forge
+dependencies:
+   - h5py
+   - matplotlib
+   - numpy
+   - pandas
+   - pytables
+   - scipy
+   - seaborn

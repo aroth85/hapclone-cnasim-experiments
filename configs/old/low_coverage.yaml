@@ -1,0 +1,52 @@
+outdir: /projects/molonc/scratch/kbreen/hapclone-eval/cnasim/low_coverage
+
+#cnasim
+num_cells: 1000
+coverage: 0.01
+bin_length: 500000
+uniform_coverage: True
+eval_params: " "
+sample_id: 
+   - set1
+   - set2
+   - set3
+
+num_blocks: 50
+num_snps: 2000000
+max_copystate: 8
+phase_switch: 0.01
+
+#hapclone
+power_scale:
+   - 0
+   - 1
+   - 2
+
+beta_value:
+    - 0.5
+    - 1
+    - 2
+
+baf_stay:
+    - 99
+    - 0.9
+    - 999
+    - 0.09
+
+num_threads: 8
+
+#Run Chisel
+#Number of bins per chunk to split chisel combine analysis into
+chunk_size: 50
+# Number of threads used by chisel calling
+call_threads: 12
+# Number of threads used by chisel combine
+combo_threads: 4
+# Number of EM restarts when running chisel combine
+combo_restarts: 1
+#Size of haplotype bins used by chisel
+haplotype_bin_size: 10000
+# Maximum ploidy for chisel to consider
+max_ploidy: 6
+# Minimum number of reads to retain a cell
+min_cell_reads: 1000

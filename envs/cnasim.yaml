@@ -1,0 +1,12 @@
+channels:
+   - conda-forge
+   - bioconda
+dependencies:
+   - numpy
+   - scipy
+   - msprime
+   - biopython
+   - pyfaidx
+   - pip
+   - pip:
+      - "git+https://github.com/samsonweiner/CNAsim.git"

@@ -1,0 +1,41 @@
+outdir: /projects/molonc/scratch/kbreen/hapclone-eval/cnasim/pipeline_test
+
+#CNAsim
+num_cells: 100
+coverage: 0.1
+min_leaves: 5
+eval_params: "-w"
+sample_id: 
+  - set1
+  - set2
+  - set3
+
+#hapclone
+num_snps: 2000000
+num_blocks: 50
+max_copystate: 4
+
+power_scale: 
+   - 2
+   - 1
+
+beta_value:
+   - 0.5
+   - 1
+   - 2
+
+#Chisel
+#Number of bins per chunk to split chisel combine analysis into
+chunk_size: 3
+#Number of threads used by chisel calling
+call_threads: 12
+#Number of threads used by chisel combine
+combo_threads: 4
+#Number of EM restarts when running chisel combine
+combo_restarts: 1
+#Size of haplotype bins used by chisel
+haplotype_bin_size: 50000
+#Maximum ploidy for chisel to consider
+max_ploidy: 6
+#Minimum number of reads to retain a cell
+min_cell_reads: 0

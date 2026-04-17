@@ -1,0 +1,44 @@
+outdir: /home/andrew/Desktop/cnasim_test_3
+
+# Data parameters
+bin_size: 500000
+block_size: 10000
+coverage: 0.1
+num_cells: 100
+num_snps: 2000000
+phase_switch_prob: 0.01
+
+num_replicates: 5
+
+# Inference parameters
+max_copystate: 6
+
+cnasim:
+  cli_args:
+    eval1: "-w"
+    eval2: "-s 4 -s1 0.25"
+    eval3: "-c2 3"
+    eval4: "-j 20 -c 5"
+  num_threads: 8
+
+chisel:
+  # Number of threads used by chisel calling
+  call_threads: 8
+  # Number of bins per chunk to split chisel combine analysis into
+  chunk_size: 100
+  # Number of EM restarts when running chisel combine
+  combo_restarts: 1
+  # Number of threads used by chisel combine
+  combo_threads: 4
+  #Maximum ploidy for chisel to consider
+  max_ploidy: 6
+  # Minimum number of reads to retain a cell
+  min_cell_reads: 0
+
+hapclone:
+  cli_args:
+    default: ""
+    b2: "--rdr-b 2"
+    power0: "--precision-scale-power 0"
+    power1: "--precision-scale-power 1"
+  num_threads: 8

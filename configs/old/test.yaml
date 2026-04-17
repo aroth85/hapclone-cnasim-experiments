@@ -1,0 +1,38 @@
+outdir: /home/andrew/Desktop/cnasim_test_2
+
+#cnasim
+cnasim_num_threads: 8
+num_cells: 5
+coverage: 0.1
+min_leaves: 2
+eval_params: "-w"
+bin_size: 500000
+block_size: 10000
+uniform_coverage: True
+num_snps: 2000000
+
+max_copystate: 6
+
+sample_id:
+  - set1
+
+hapclone_args:
+  - "--rdr-b 1"
+  - "--rdr-b 2"
+  - "--precision-scale-power 0"
+  - "--precision-scale-power 1"
+hapclone_num_threads: 8
+
+#Chisel
+# Number of bins per chunk to split chisel combine analysis into
+chunk_size: 100
+# Number of threads used by chisel calling
+call_threads: 8
+# Number of threads used by chisel combine
+combo_threads: 4
+# Number of EM restarts when running chisel combine
+combo_restarts: 1
+#Maximum ploidy for chisel to consider
+max_ploidy: 6
+# Minimum number of reads to retain a cell
+min_cell_reads: 0

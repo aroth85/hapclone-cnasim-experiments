@@ -1,0 +1,24 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - samtools
+  - r-base
+  - r-devtools
+  - r-argparse
+  - r-r.utils
+  - r-phytools
+  - r-magick
+  - r-tidyverse
+  - r-dbscan
+  - r-uwot
+  - r-gtools
+  - r-cowplot
+  - r-ggrepel
+  - r-ggforce
+  - r-treetools
+  - r-vgam
+  - bioconductor-complexheatmap
+  - bioconductor-genomeinfodb
+  - bioconductor-ggtree
+  - bioconductor-qdnaseq

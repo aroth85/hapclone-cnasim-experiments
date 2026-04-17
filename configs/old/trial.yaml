@@ -1,0 +1,40 @@
+outdir: /Users/kate/Desktop/Research/Projects/hapclone/data/trial
+
+#cnasim
+num_cells: 100
+coverage: 0.1
+min_leaves: 5
+eval_params: "-w"
+bin_length: 500000
+uniform_coverage: True
+sample_id: 
+   - set1
+   - set2
+   - set3
+
+power_scale: 
+   - 2
+
+beta_value:
+   - 2
+
+num_blocks: 50
+num_snps: 2000000
+max_copystate: 6
+num_threads: 8
+
+#Chisel
+# Number of bins per chunk to split chisel combine analysis into
+chunk_size: 3
+# Number of threads used by chisel calling
+call_threads: 12
+# Number of threads used by chisel combine
+combo_threads: 4
+# Number of EM restarts when running chisel combine
+combo_restarts: 1
+#Size of haplotype bins used by chisel
+haplotype_bin_size: 50000
+#Maximum ploidy for chisel to consider
+max_ploidy: 6
+# Minimum number of reads to retain a cell
+min_cell_reads: 1000
