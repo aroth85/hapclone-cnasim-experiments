@@ -15,10 +15,10 @@ max_copystate: 6
 
 cnasim:
   cli_args:
-    eval1: "-w"
-    eval2: "-s 4 -s1 0.25"
-    eval3: "-c2 3"
-    eval4: "-j 20 -c 5"
+    eval1: "-M -w"
+    eval2: "-M -s 4 -s1 0.25"
+    eval3: "-M -c2 3"
+    eval4: "-M -j 20 -c 5"
   num_threads: 8
 
 chisel:
