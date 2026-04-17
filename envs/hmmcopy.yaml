@@ -2,7 +2,7 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - bioconductor-hmmcopy
+  - bioconductor-hmmcopy=1.52
   - pandas=2.2.3
   - pytables=3.10.2
   - rpy2=3.5.11

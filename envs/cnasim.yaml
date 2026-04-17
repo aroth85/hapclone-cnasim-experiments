@@ -9,4 +9,4 @@ dependencies:
    - pyfaidx
    - pip
    - pip:
-      - "git+https://github.com/samsonweiner/CNAsim.git"
+      - "git+https://github.com/samsonweiner/CNAsim.git@v1.3.5"
