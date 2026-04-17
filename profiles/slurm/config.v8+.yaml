@@ -1,0 +1,23 @@
+software-deployment-method: conda
+use-conda: True
+
+latency-wait: 60
+rerun-incomplete: True
+retries: 2
+local-cores: 1
+
+executor: slurm
+
+default-resources:
+    slurm_partition: general
+    runtime: f"{60 * attempt}m"
+    mem: f"{min(8 * attempt, 360)}G"
+
+
+jobs: unlimited
+
+
+set-resources:
+    hapclone_fit:
+        runtime: f"{min(2880 * attempt, 70560)}m"
+        mem: f"{min(32 * attempt, 360)}G"
