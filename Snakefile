@@ -1,6 +1,5 @@
 import os
 
-
 from utils import ConfigManager
 
 config = ConfigManager(config)
@@ -67,10 +66,6 @@ rule simulate_snp_counts:
         r=config.read_length,
     conda:
         "envs/python.yaml"
-    group:
-        "cell"
-    resources:
-        mem="16G",
     shell:
         "python scripts/simulate_snp_counts.py "
         "-c {wildcards.cell} "

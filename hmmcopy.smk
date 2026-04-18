@@ -20,8 +20,6 @@ rule run_hmmcopy:
         config.max_copy_state,
     conda:
         "envs/hmmcopy.yaml"
-    group:
-        "cell"
     log:
         config.get_log_file(config.hmmcopy_output_template, config.hmmcopy_log_dir),
     benchmark:
@@ -68,8 +66,6 @@ rule plot_cnv_profiles:
         config.hmmcopy_cnv_profile_template,
     conda:
         "envs/python.yaml"
-    group:
-        "cell"
     log:
         config.get_log_file(config.hmmcopy_cnv_profile_template, config.hmmcopy_log_dir),
     resources:

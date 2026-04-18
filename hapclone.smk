@@ -9,8 +9,6 @@ rule format_hapclone_cell:
         k=config.block_size,
     conda:
         "envs/python.yaml"
-    group:
-        "cell"
     resources:
         mem="8G",
     shell:
