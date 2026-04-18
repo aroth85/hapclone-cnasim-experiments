@@ -29,7 +29,7 @@ rule run_hmmcopy:
             config.hmmcopy_output_template, config.hmmcopy_benchmark_dir
         )
     resources:
-        mem="16G",
+        mem="8G",
     shell:
         "(python scripts/hmmcopy/run_hmmcopy.py -i {input} -o {output} -m 1 2 3 4 5 6 -s {params}) >{log} 2>&1"
 

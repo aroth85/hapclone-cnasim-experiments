@@ -12,7 +12,7 @@ rule format_hapclone_cell:
     group:
         "cell"
     resources:
-        mem="4G",
+        mem="8G",
     shell:
         "python scripts/hapclone/format_hapclone_cell.py "
         "-c {wildcards.cell} "
