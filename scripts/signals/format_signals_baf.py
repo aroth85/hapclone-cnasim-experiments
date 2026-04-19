@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def main(args):
-    df = []
+    header = True
 
     for file_name in args.in_files:
         cell_df = pd.read_csv(file_name, sep="\t")
@@ -22,11 +22,9 @@ def main(args):
 
         cell_df = cell_df[["chr", "start", "end", "cell_id", "hap_label", "allele1", "allele0", "totalcounts"]]
 
-        df.append(cell_df)
+        cell_df.to_csv(args.out_file, index=False, header=header, mode="a", sep="\t")
 
-    df = pd.concat(df)
-
-    df.to_csv(args.out_file, index=False, sep="\t")
+        header = False
 
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@ rule format_signals_baf:
     conda:
         "envs/python.yaml"
     resources:
-        mem="64G",
+        mem="8G",
     shell:
         "python scripts/signals/format_signals_baf.py -i {input} -o {output}"
 
@@ -37,6 +37,6 @@ rule signals:
     log:
         config.get_log_file(config.signals_output_template),
     resources:
-        mem="64G"
+        mem="64G",
     shell:
         "(Rscript scripts/signals/run.R {input.c} {input.b} {output}) >{log} 2>&1"
