@@ -18,6 +18,8 @@ jobs: unlimited
 
 
 set-resources:
+    cnasim:
+        runtime: f"{320 * attempt}m"
     hapclone_fit:
         runtime: f"{min(2880 * attempt, 70560)}m"
         mem: f"{min(32 * attempt, 360)}G"
