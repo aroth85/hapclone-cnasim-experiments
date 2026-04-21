@@ -13,13 +13,23 @@ class ConfigManager(object):
             for r in self.replicate_ids:
                 for c in self.cell_ids:
                     yield str(self.snp_counts_file).format(cell=c, sim_set=s, replicate=r)
-                    yield str(self.hmmcopy_cnv_profile_template).format(cell=c, sim_set=s, replicate=r)
-                    yield str(self.chisel_calls_file).format(sim_set=s, replicate=r)
-                    yield str(self.chisel_swap_file).format(sim_set=s, replicate=r)
+                    #yield str(self.hmmcopy_cnv_profile_template).format(cell=c, sim_set=s, replicate=r)
+                    #yield str(self.chisel_calls_file).format(sim_set=s, replicate=r)
+                    #yield str(self.chisel_swap_file).format(sim_set=s, replicate=r)
                     yield str(self.hapclone_input_file).format(sim_set=s, replicate=r)
-                    yield str(self.signals_output_template).format(sim_set=s, replicate=r)
+                    #yield str(self.signals_output_template).format(sim_set=s, replicate=r)
                     for h in self.hapclone_cli_args:
                         yield str(self.hapclone_results_file).format(hapclone_run_config=h, sim_set=s, replicate=r)
+                    yield str(self.data_plot).format(sim_set=s, replicate=r)
+                    yield str(self.total_plot).format(sim_set=s, replicate=r)
+                    yield str(self.baf_plot).format(sim_set=s, replicate=r)
+                    yield str(self.baf_mirror_plot).format(sim_set=s, replicate=r)
+                    yield str(self.hapclone_baf_adj_plot).format(sim_set=s, replicate=r)
+                    yield str(self.hapclone_total_adj_plot).format(sim_set=s, replicate=r)
+                    yield str(self.phasing_plot).format(sim_set=s, replicate=r)
+                    yield str(self.hapclone_baf_plot).format(sim_set=s, replicate=r)
+                    yield str(self.hapclone_baf_mirror_plot).format(sim_set=s, replicate=r)
+                    yield str(self.hapclone_total_plot).format(sim_set=s, replicate=r)
 
     @property
     def out_dir(self):
@@ -103,6 +113,10 @@ class ConfigManager(object):
     @property
     def cnasim_reads(self):
         return self.cnasim_out_dir.joinpath("readcounts.tsv")
+
+    @property
+    def cnasim_tree(self):
+        return self.cnasim_out_dir.joinpath("tree.nwk")
 
     def get_cna_cli_args(self, wc):
         return self.cnasim_cli_args[wc.sim_set]
@@ -350,6 +364,58 @@ class ConfigManager(object):
     @property
     def signals_output_template(self):
         return self.signals_results_dir.joinpath("signals.tsv.gz")
+    
+    # Plotting
+    @property
+    def plot_dir(self):
+        path = pathlib.Path(self.config["outdir"])
+        return path.joinpath("sim_{sim_set}", "plots")
+
+    @property
+    def data_plot(self):
+        return self.plot_dir.joinpath("data", "replicate{replicate}.png")
+
+    @property
+    def total_plot(self):
+        return self.plot_dir.joinpath("total", "replicate{replicate}.png")
+
+    @property
+    def baf_plot(self):
+        return self.plot_dir.joinpath("baf", "replicate{replicate}.png")
+    
+    @property
+    def baf_mirror_plot(self):
+        return self.plot_dir.joinpath("baf_mirror", "replicate{replicate}.png")
+
+    @property
+    def hapclone_baf_adj_plot(self):
+        return self.plot_dir.joinpath("adjusted", "baf_replicate{replicate}.png")
+    
+    @property
+    def hapclone_total_adj_plot(self):
+        return self.plot_dir.joinpath("adjusted", "replicate{replicate}.png")
+    
+    @property
+    def phasing_plot(self):
+        return self.plot_dir.joinpath("data", "phasing_{replicate}.png")
+    
+    @property
+    def hapclone_baf_plot(self):
+        return self.plot_dir.joinpath("baf", "hapclone", "replicate{replicate}.png")
+
+    @property
+    def hapclone_baf_mirror_plot(self):
+        return self.plot_dir.joinpath("baf_mirror", "hapclone", "replicate{replicate}.png")
+
+    @property
+    def hapclone_total_plot(self):
+        return self.plot_dir.joinpath("total", "hapclone", "replicate{replicate}.png")
+    
+    @property
+    def hapclone_default(self):
+        mode = self.config["hapclone_mode"]
+        path = self.out_dir.joinpath("hapclone/results/" + mode + "/results.tsv.gz")
+        return path
 
     # Auxiliary files
     def get_log_file(self, template, directory=None):
