@@ -1,71 +1,43 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from Bio import Phylo
-from utils import ordered_profiles, plot_hapclone
+from utils import *
 
 
 def main(args):
 
-    print("Plotting set")
-    hapclone_files = args.hapclone_file
-    cnasim_file = args.cnasim_file
-    tree_file = args.tree_file
-
-    print("Reading in ground truth data")
-    cnasim = pd.read_csv(cnasim_file, sep="\t")
-    cnasim[["A", "B"]] = cnasim["CN states"].str.split(r",", expand=True)
-    cnasim["total"] = cnasim["A"].astype(int) + cnasim["B"].astype(int)
-    cnasim["baf"] = cnasim["A"].astype(int) / cnasim["total"]
-
-    # Get ticks
-    cell = cnasim[cnasim["CELL"] == "cell1"].reset_index(drop=True)
-    cell["bin"] = cell.index
-    bins = cell.drop_duplicates(subset="chrom")
-    cnasim_ticks = bins.bin.values
-    tick_labels = [x[3:] for x in bins.chrom.values]
-
-    tree = Phylo.read(tree_file, "newick")
-    nodes = tree.get_terminals()
-    leaves = []
-    for i in nodes:
-        leaves.append(i.name)
+    # Load ground truth data
+    cnasim = load_cnasim_profile(args.cnasim_file)
+    _, leaves = load_cnasim_tree(args.tree_file)
+    ticks, tick_labels = get_ticks(cnasim)
 
     methods = []
-    profiles = []
-    profiles_mirror = []
+    profs = []
+    profs_mirror = []
 
     # CNAsim
     cnasim_profile = ordered_profiles("CELL", "baf", cnasim, leaves)
     methods.append("cnasim")
-    profiles.append(cnasim_profile)
-    profiles_mirror.append(cnasim_profile)
+    profs.append(cnasim_profile)
+    profs_mirror.append(cnasim_profile)
 
-    print("Reading in results")
+    hapclone_files = args.hapclone_file
     for i in range(len(hapclone_files)):
-        try:
-            hapclone_file = str(hapclone_files[i])
-            hapclone = pd.read_csv(hapclone_file, sep="\t", compression="gzip")
-            hapclone["total"] = hapclone["cn_A_cell"] + hapclone["cn_B_cell"]
-            hapclone["baf"] = hapclone["cn_A_cell"] / hapclone["total"]
+        hapclone = load_hapclone_results(str(hapclone_files[i]), baf=True)
+        hapclone_profile = ordered_profiles("cell_id", "baf", hapclone, leaves)
+        profs.append(hapclone_profile)
+        profs_mirror.append(1 - hapclone_profile)
+        name = str(hapclone_files[i]).split("/")[-2]
+        methods.append(name)
 
-            # plotting info
-            hapclone_profile = ordered_profiles("cell_id", "baf", hapclone, leaves)
-            profiles.append(hapclone_profile)
-            profiles_mirror.append(1 - hapclone_profile)
-            name = str(hapclone_files[i]).split("/")[-2]
-            methods.append(name)
-
-        except FileNotFoundError:
-            hapclone = []
-            print("No HapClone results found for set " + str(f + 1))
-
-    print("Plotting results")
-    fig = plot_hapclone(profiles, methods, cnasim_ticks, tick_labels, "GnBu", 0, 1)
+    size = np.sqrt(len(profs))
+    fig = plot_profiles(
+        profs, methods, ticks, tick_labels, ["GnBu"], 0, 1, int(np.ceil(size))
+    )
     fig.savefig(args.baf_plot)
 
-    fig = plot_hapclone(
-        profiles_mirror, methods, cnasim_ticks, tick_labels, "GnBu", 0, 1
+    fig = plot_profiles(
+        profs_mirror, methods, ticks, tick_labels, ["GnBu"], 0, 1, int(np.ceil(size))
     )
     fig.savefig(args.baf_mirror_plot)
 

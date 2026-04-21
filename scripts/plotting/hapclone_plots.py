@@ -2,33 +2,15 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from Bio import Phylo
-from utils import ordered_profiles, plot_hapclone
+from utils import *
 
 
 def main(args):
 
-    print("Plotting")
-    hapclone_files = args.hapclone_file
-    cnasim_file = args.cnasim_file
-    tree_file = args.tree_file
-
-    print("Reading in ground truth data")
-    cnasim = pd.read_csv(cnasim_file, sep="\t")
-    cnasim[["A", "B"]] = cnasim["CN states"].str.split(r",", expand=True)
-    cnasim["total"] = cnasim["A"].astype(int) + cnasim["B"].astype(int)
-    cnasim["baf"] = cnasim["A"].astype(int) / cnasim["total"]
-
-    cell = cnasim[cnasim["CELL"] == "cell1"].reset_index(drop=True)
-    cell["bin"] = cell.index
-    bins = cell.drop_duplicates(subset="chrom")
-    cnasim_ticks = bins.bin.values
-    tick_labels = [x[3:] for x in bins.chrom.values]
-
-    tree = Phylo.read(tree_file, "newick")
-    nodes = tree.get_terminals()
-    leaves = []
-    for i in nodes:
-        leaves.append(i.name)
+    # Loading ground truth data
+    cnasim = load_cnasim_profile(args.cnasim_file)
+    _, leaves = load_cnasim_tree(args.tree_file)
+    ticks, tick_labels = get_ticks(cnasim)
 
     profiles = []
     methods = []
@@ -38,25 +20,18 @@ def main(args):
     profiles.append(cnasim_profile)
     methods.append("cnasim")
 
-    print("Reading in results")
+    hapclone_files = args.hapclone_file
     for i in range(len(hapclone_files)):
-        try:
-            hapclone_file = str(hapclone_files[i])
-            hapclone = pd.read_csv(hapclone_file, sep="\t", compression="gzip")
-            hapclone["total"] = hapclone["cn_A_cell"] + hapclone["cn_B_cell"]
+        hapclone = load_hapclone_results(str(hapclone_files[i]))
+        hapclone_profile = ordered_profiles("cell_id", "total", hapclone, leaves)
+        profiles.append(hapclone_profile)
+        name = str(hapclone_files[i]).split("/")[-2]
+        methods.append(name)
 
-            # plotting info
-            hapclone_profile = ordered_profiles("cell_id", "total", hapclone, leaves)
-            profiles.append(hapclone_profile)
-            name = str(hapclone_files[i]).split("/")[-2]
-            methods.append(name)
-
-        except FileNotFoundError:
-            hapclone = []
-            print("No HapClone results found")
-
-    print("Plotting results")
-    fig = plot_hapclone(profiles, methods, cnasim_ticks, tick_labels, "OrRd", 0, 12)
+    size = np.sqrt(len(profiles))
+    fig = plot_profiles(
+        profiles, methods, ticks, tick_labels, ["OrRd"], 0, 12, int(np.ceil(size))
+    )
     fig.savefig(args.plot_file)
 
 
