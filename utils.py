@@ -30,6 +30,12 @@ class ConfigManager(object):
                     yield str(self.hapclone_baf_plot).format(sim_set=s, replicate=r)
                     yield str(self.hapclone_baf_mirror_plot).format(sim_set=s, replicate=r)
                     yield str(self.hapclone_total_plot).format(sim_set=s, replicate=r)
+                    yield str(self.cluster_within_results).format(sim_set=s)
+                    yield str(self.cluster_between_results).format(sim_set=s)
+                    yield str(self.cluster_max_results).format(sim_set=s)
+                    yield str(self.cluster_min_results).format(sim_set=s)
+                    yield str(self.ploidy_results).format(sim_set=s)
+                    yield str(self.hamming_results).format(sim_set=s)
 
     @property
     def out_dir(self):
@@ -410,6 +416,36 @@ class ConfigManager(object):
     @property
     def hapclone_total_plot(self):
         return self.plot_dir.joinpath("total", "hapclone", "replicate{replicate}.png")
+    
+    # Benchmarking
+    @property
+    def benchmark_dir(self):
+        path = pathlib.Path(self.config["outdir"])
+        return path.joinpath("sim_{sim_set}", "benchmark")
+
+    @property
+    def cluster_within_results(self):
+        return self.benchmark_dir.joinpath("clustering", "within.tsv")
+    
+    @property
+    def cluster_max_results(self):
+        return self.benchmark_dir.joinpath("clustering", "maxs.tsv")
+    
+    @property
+    def cluster_min_results(self):
+        return self.benchmark_dir.joinpath("clustering", "mins.tsv")
+
+    @property
+    def cluster_between_results(self):
+        return self.benchmark_dir.joinpath("clustering", "between.tsv")
+
+    @property
+    def ploidy_results(self):
+        return self.benchmark_dir.joinpath("copynumber", "ploidy.tsv")
+
+    @property
+    def hamming_results(self):
+        return self.benchmark_dir.joinpath("copynumber", "hamming.tsv")
     
     @property
     def hapclone_default(self):
