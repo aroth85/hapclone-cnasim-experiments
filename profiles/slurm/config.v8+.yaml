@@ -13,9 +13,7 @@ default-resources:
     runtime: f"{60 * attempt}m"
     mem: f"{min(8 * attempt, 360)}G"
 
-
-jobs: 300
-
+jobs: 500
 
 set-resources:
     cnasim:

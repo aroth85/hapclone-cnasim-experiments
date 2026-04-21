@@ -2,20 +2,20 @@ import pandas as pd
 
 
 def main(args):
-    df = []
+    mode = "w"
 
     for file_name in args.in_files:
         cell_df = pd.read_csv(file_name, sep="\t")
 
         cell_df["total"] = cell_df["a"] + cell_df["b"]
 
-        cell_df = cell_df[cell_df["total"] == 0]
+        cell_df = cell_df[cell_df["total"] != 0]
 
-        df.append(cell_df[["chrom", "pos", "cell_id", "a", "b"]])
+        cell_df[["chrom", "pos", "cell_id", "a", "b"]].to_csv(
+            args.out_file, header=False, index=False, mode=mode, sep="\t"
+        )
 
-    df = pd.concat(df)
-
-    df.to_csv(args.out_file, header=False, index=False, sep="\t")
+        mode = "a"
 
 
 if __name__ == "__main__":
