@@ -14,7 +14,7 @@ default-resources:
     mem: f"{min(8 * attempt, 360)}G"
 
 
-jobs: unlimited
+jobs: 500
 
 
 set-resources:
