@@ -21,11 +21,11 @@ def main(args):
     methods.append("cnasim")
 
     hapclone_files = args.hapclone_file
-    for i in range(len(hapclone_files)):
-        hapclone = load_hapclone_results(str(hapclone_files[i]))
+    for file in hapclone_files:
+        hapclone = load_hapclone_results(str(file))
         hapclone_profile = ordered_profiles("cell_id", "total", hapclone, leaves)
         profiles.append(hapclone_profile)
-        name = str(hapclone_files[i]).split("/")[-2]
+        name = str(file).split("/")[-2]
         methods.append(name)
 
     size = np.sqrt(len(profiles))
