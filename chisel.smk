@@ -7,7 +7,7 @@ rule format_chisel_baf:
     output:
         config.chisel_baf_template,
     resources:
-        mem="32G",
+        mem="16G",
     shell:
         "python scripts/chisel/format_chisel_baf.py -i {input} -o {output}"
 
