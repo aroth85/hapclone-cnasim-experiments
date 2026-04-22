@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from Bio import Phylo
 import h5py
-import utils
+from utils import *
 
 
 def main(args):

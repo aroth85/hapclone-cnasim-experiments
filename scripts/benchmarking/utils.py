@@ -85,30 +85,34 @@ def save_results(data, columns, path):
     df.to_csv(path, sep="\t")
 
 def benchmark_cluster(data, distance_matrix, cluster_col, cell_col):
-    distances = []
-    maxes = []
-    mins = []
-    between = []
+    within = [] #Distance between all cells within a clone
+    maxs = [] #Maximum distance between cells in a clone
+    between = [] #Distances from all cells in one clone to all cells not in the clone 
+    mins = [] #Nearest distance between cell in a clone and cell not in a clone 
 
     clones = data[cluster_col].unique()
-    for i in range(len(clones)):
-        cells = data[data[cluster_col] == clones[i]][cell_col].unique()
-        not_in_clone = data[data[cluster_col] != clones[i]][cell_col].unique()
-        distances2 = []
-        distances_between = []
-        for j in range(len(cells)):
-            for l in range(len(not_in_clone)):
-                distances_between.append(distance_matrix[int(cells[j][4:]) - 1, int(not_in_clone[l][4:]) - 1])
-            for k in range(len(cells)):
-                if cells[j] != cells[k] and j < k:
-                    distances2.append(distance_matrix[int(cells[j][4:]) - 1, int(cells[k][4:]) - 1])
-        if len(not_in_clone) != 0:
-            mins.append(np.min(distances_between))
-        between.append(np.mean(distances_between))
-        if len(cells) > 1:
-            maxes.append(np.max(distances2))
-            distances.append(np.mean(distances2))
-    return np.mean(distances), np.mean(maxes), np.mean(mins), np.mean(between)
+    for clone in clones:
+        cells = data[data[cluster_col] == clone][cell_col].unique() #Get cells in clone
+        not_in_clone = data[data[cluster_col] != clone][cell_col].unique() #Cells not in clone
+        
+        if len(cells) > 1: #Requires that clone has more than 1 cell in it
+            within_clone = []
+            for i in range(len(cells)):
+                for j in range(len(cells)):
+                    if (i < j):
+                        within_clone.append(distance_matrix[int(cells[i][4:]) - 1, int(cells[j][4:]) -1])
+            maxs.append(np.max(within_clone))
+            within.append(np.mean(within_clone)) #mean of distances within a clone
+        
+        if len(not_in_clone) > 0: #Requires that clone isn't all the cells
+            between_clone = []
+            for i in range(len(cells)):
+                for j in range(len(not_in_clone)):
+                        between_clone.append(distance_matrix[int(cells[i][4:]) - 1, int(not_in_clone[j][4:]) - 1])
+            between.append(np.mean(between_clone))
+            mins.append(np.min(between_clone))
+            
+    return np.mean(within), np.mean(maxs), np.mean(between), np.mean(mins)
 
 def benchmark_copynumber(data, cnasim, cell_col, total_col, cells):
     hamming = []

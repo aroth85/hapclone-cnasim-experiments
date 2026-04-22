@@ -1,6 +1,6 @@
 rule plot_data:
     conda:
-        "benchmarking"
+        "envs/benchmarking.yaml"
     input:
         ha=config.hapclone_input_file,
         p=config.cnasim_reads,
@@ -12,7 +12,7 @@ rule plot_data:
 
 rule plot_total:
     conda:
-        "benchmarking"
+        "envs/benchmarking.yaml"
     params:
         c=config.chisel_calls_file,
         s=config.signals_output_template,
@@ -28,7 +28,7 @@ rule plot_total:
 
 rule plot_baf:
     conda:
-        "benchmarking"
+        "envs/benchmarking.yaml"
     params:
         c=config.chisel_calls_file,
         s=config.signals_output_template
@@ -44,7 +44,7 @@ rule plot_baf:
 
 rule plot_hapclone_adjusted:
     conda:
-        "benchmarking"
+        "envs/benchmarking.yaml"
     input:
         ha=config.hapclone_default,
         p=config.cnasim_profiles,
@@ -57,7 +57,7 @@ rule plot_hapclone_adjusted:
     
 rule plot_phasing:
     conda:
-        "benchmarking"
+        "envs/benchmarking.yaml"
     input:
         ha=config.hapclone_input_file
     output:
@@ -67,7 +67,7 @@ rule plot_phasing:
 
 rule plot_hapclone_baf:
     conda:
-        "benchmarking"
+        "envs/benchmarking.yaml"
     input:
         p=config.cnasim_profiles,
         t=config.cnasim_tree,
@@ -80,7 +80,7 @@ rule plot_hapclone_baf:
 
 rule plot_hapclone_total:
     conda:
-        "benchmarking"
+        "envs/benchmarking.yaml"
     input:
         p=config.cnasim_profiles,
         t=config.cnasim_tree,

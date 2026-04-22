@@ -1,6 +1,6 @@
 rule clustering_benchmark:
     conda:
-        "benchmarking"
+        "envs/benchmarking.yaml"
     input:
         ha=expand(config.hapclone_results_file, hapclone_run_config=config.hapclone_cli_args, replicate=config.replicate_ids, allow_missing=True),
         t=expand(config.cnasim_tree, replicate=config.replicate_ids, allow_missing=True),
@@ -29,7 +29,7 @@ rule clustering_benchmark:
 
 rule copynumber_benchmark:
     conda:
-        "benchmarking"
+        "envs/benchmarking.yaml"
     input:
         ha=expand(config.hapclone_results_file, hapclone_run_config=config.hapclone_cli_args, replicate=config.replicate_ids, allow_missing=True),
         p=expand(config.cnasim_profiles, replicate=config.replicate_ids, allow_missing=True),

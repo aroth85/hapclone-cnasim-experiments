@@ -46,12 +46,12 @@ rule hapclone_fit:
     params:
         a=config.get_hapclone_cli_args,
         c=config.max_copy_state,
-    # benchmark:
-    #     config.get_benchmark_file("", "hapclone_init_fit.txt")
+    benchmark:
+         config.get_benchmark_file(config.hapclone_fit_file)
     conda:
         "envs/hapclone.yaml"
-    # log:
-    #     config.get_log_file(config.init_fit_file),
+    log:
+         config.get_log_file(config.hapclone_fit_file),
     resources:
         mem=lambda wildcards, attempt: "{}G".format(32 * attempt),
         runtime=lambda wildcards, attempt: "{}h".format(24 * attempt),
@@ -72,9 +72,7 @@ rule hapclone_write_results:
     output:
         config.hapclone_results_file,
     conda:
-        "envs/hapclone.yaml"
-    # log:
-    #     config.get_log_file(config.results_file),
+        "hapclone" #"envs/hapclone.yaml"
     resources:
         mem="16G",
         runtime="8h",

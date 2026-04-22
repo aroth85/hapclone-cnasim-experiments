@@ -13,4 +13,4 @@ dependencies:
   - scipy
   - pip
   - pip:
-      - "git+ssh://git@github.com/Roth-Lab/HapClone@kate"
+      - "git+https://git@github.com/Roth-Lab/HapClone@kate"

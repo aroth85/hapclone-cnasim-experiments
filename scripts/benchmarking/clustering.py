@@ -46,8 +46,8 @@ def main(args):
             )
             results_within.append(hapclone_results[0])
             maxs.append(hapclone_results[1])
-            mins.append(hapclone_results[2])
-            results_between.append(hapclone_results[3])
+            results_between.append(hapclone_results[2])
+            mins.append(hapclone_results[3])
 
         # Chisel
         if Path(chisel_file).exists():
@@ -57,8 +57,8 @@ def main(args):
             )
             results_within.append(chisel_results[0])
             maxs.append(chisel_results[1])
-            mins.append(chisel_results[2])
-            results_between.append(chisel_results[3])
+            results_between.append(chisel_results[2])
+            mins.append(chisel_results[3])
         else:
             mins.append([])
             maxs.append([])
@@ -73,8 +73,8 @@ def main(args):
             )
             results_within.append(signals_results[0])
             maxs.append(signals_results[1])
-            mins.append(signals_results[2])
-            results_between.append(signals_results[3])
+            results_between.append(signals_results[2])
+            mins.append(signals_results[3])
         else:
             mins.append([])
             maxs.append([])
@@ -89,8 +89,8 @@ def main(args):
             )
             results_within.append(hmmcopy_results[0])
             maxs.append(np.mean(hmmcopy_results[1]))
-            mins.append(np.mean(hmmcopy_results[2]))
-            results_between.append(hmmcopy_results[3])
+            results_between.append(hmmcopy_results[2])
+            mins.append(np.mean(hmmcopy_results[3]))
         else:
             mins.append([])
             maxs.append([])
