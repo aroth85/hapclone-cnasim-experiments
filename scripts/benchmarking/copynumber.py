@@ -44,8 +44,8 @@ def main(args):
             ploidy_results.append(chisel_results[0])
             hamming_results.append(chisel_results[1])
         else:
-            ploidy_results.append([])
-            hamming_results.append([])
+            ploidy_results.append( np.nan)
+            hamming_results.append( np.nan)
 
         # Signals
         if Path(signals_file).exists():
@@ -56,8 +56,8 @@ def main(args):
             ploidy_results.append(signals_results[0])
             hamming_results.append(signals_results[1])
         else:
-            ploidy_results.append([])
-            hamming_results.append([])
+            ploidy_results.append( np.nan)
+            hamming_results.append( np.nan)
 
         # HMMCopy
         if Path(hmmcopy_file).exists():
@@ -68,8 +68,8 @@ def main(args):
             ploidy_results.append(hmmcopy_results[0])
             hamming_results.append(hmmcopy_results[1])
         else:
-            ploidy_results.append([])
-            hamming_results.append([])
+            ploidy_results.append( np.nan)
+            hamming_results.append( np.nan)
 
         hamming.append(hamming_results)
         ploidy.append(ploidy_results)

@@ -90,3 +90,30 @@ rule plot_hapclone_total:
     shell:
         "python scripts/plotting/hapclone_plots.py -ha {input.ha} -p {input.p} -t {input.t} -o {output.o}"
 
+rule plot_results:
+    conda:
+        "envs/benchmarking.yaml"
+    input:
+        p=config.ploidy_results,
+        ha=config.hamming_results,
+        ma=config.cluster_max_results,
+        mi=config.cluster_min_results,
+        b=config.cluster_between_results,
+        w=config.cluster_within_results
+    output:
+        po=config.ploidy_plot,
+        hao=config.hamming_plot,
+        mio=config.min_plot,
+        mao=config.max_plot,
+        bo=config.between_plot,
+        wo=config.within_plot
+    shell:
+        "python scripts/plotting/benchmark_plot.py "
+        "-p {input.p} -po {output.po} "
+        "-ha {input.ha} -hao {output.hao} "
+        "-ma {input.ma} -mao {output.mao} "
+        "-mi {input.mi} -mio {output.mio} "
+        "-b {input.b} -bo {output.bo} "
+        "-w {input.w} -wo {output.wo} "
+
+

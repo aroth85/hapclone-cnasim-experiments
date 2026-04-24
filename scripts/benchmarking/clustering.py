@@ -60,10 +60,10 @@ def main(args):
             results_between.append(chisel_results[2])
             mins.append(chisel_results[3])
         else:
-            mins.append([])
-            maxs.append([])
-            results_between.append([])
-            results_within.append([])
+            mins.append(np.nan)
+            maxs.append(np.nan)
+            results_between.append(np.nan)
+            results_within.append(np.nan)
 
         # Signals
         if Path(signals_file).exists():
@@ -76,10 +76,10 @@ def main(args):
             results_between.append(signals_results[2])
             mins.append(signals_results[3])
         else:
-            mins.append([])
-            maxs.append([])
-            results_between.append([])
-            results_within.append([])
+            mins.append(np.nan)
+            maxs.append( np.nan)
+            results_between.append( np.nan)
+            results_within.append( np.nan)
 
         # HmmCopy
         if Path(hmmcopy_file).exists():
@@ -92,10 +92,10 @@ def main(args):
             results_between.append(hmmcopy_results[2])
             mins.append(np.mean(hmmcopy_results[3]))
         else:
-            mins.append([])
-            maxs.append([])
-            results_between.append([])
-            results_within.append([])
+            mins.append( np.nan)
+            maxs.append( np.nan)
+            results_between.append( np.nan)
+            results_within.append( np.nan)
 
         results_within2.append(results_within)
         results_between2.append(results_between)

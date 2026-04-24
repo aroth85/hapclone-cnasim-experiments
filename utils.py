@@ -36,6 +36,12 @@ class ConfigManager(object):
                     yield str(self.cluster_min_results).format(sim_set=s)
                     yield str(self.ploidy_results).format(sim_set=s)
                     yield str(self.hamming_results).format(sim_set=s)
+                    yield str(self.ploidy_plot).format(sim_set=s)
+                    yield str(self.hamming_plot).format(sim_set=s)
+                    yield str(self.min_plot).format(sim_set=s)
+                    yield str(self.max_plot).format(sim_set=s)
+                    yield str(self.between_plot).format(sim_set=s)
+                    yield str(self.within_plot).format(sim_set=s)
 
     @property
     def out_dir(self):
@@ -416,6 +422,30 @@ class ConfigManager(object):
     @property
     def hapclone_total_plot(self):
         return self.plot_dir.joinpath("total", "hapclone", "replicate{replicate}.png")
+
+    @property
+    def ploidy_plot(self):
+        return self.plot_dir.joinpath("results", "ploidy.png")
+    
+    @property
+    def hamming_plot(self):
+        return self.plot_dir.joinpath("results", "hamming.png")
+
+    @property
+    def max_plot(self):
+        return self.plot_dir.joinpath("results", "max.png")
+
+    @property
+    def min_plot(self):
+        return self.plot_dir.joinpath("results", "min.png")
+    
+    @property 
+    def between_plot(self):
+        return self.plot_dir.joinpath("results", "between.png")
+    
+    @property
+    def within_plot(self):
+        return self.plot_dir.joinpath("results", "within.png")
     
     # Benchmarking
     @property

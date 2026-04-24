@@ -113,3 +113,17 @@ def plot_profiles(profiles, names, ticks, tick_labels, cmap, vmin, vmax, size):
             i += 1
 
     return fig
+
+def plot_results(data, xlim, ylim, title, ticks):
+
+    fig, ax = plt.subplots(1, figsize = (8, 6))
+    print(data.values[:, 0])
+    for i in range(data.values.shape[1]):
+        ax.scatter(np.arange(data.values.shape[0]), data.values[:, i], s=10, alpha=0.5)
+    ax.set_xlim(xlim)
+    ax.set_ylim(ylim)
+    ax.set_title(title)
+    ax.legend(data.columns, ncol=2, fontsize=8)
+    ax.set_xticks(ticks)
+
+    return fig
