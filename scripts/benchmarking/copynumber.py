@@ -49,7 +49,7 @@ def main(args):
 
         # Signals
         if Path(signals_file).exists():
-            signals = load_signals_result(signals_file)
+            signals = load_signals_results(signals_file)
             signals_results = benchmark_copynumber(
                 signals, cnasim, "cell_id", "state", cells
             )

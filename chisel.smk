@@ -197,7 +197,7 @@ rule run_chisel_call:
     log:
         config.chisel_log_dir.joinpath("chisel_calling.log"),
     resources:
-        mem="64G",
+        mem="128G",
     threads: config.chisel_call_threads
     shell:
         "(chisel_calling "

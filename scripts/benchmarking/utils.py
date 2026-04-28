@@ -52,7 +52,7 @@ def load_signals_clones(path):
 
 
 def load_hmmcopy_results(path):
-    hmmcopy = pd.read_csv(path, sep="\t")
+    hmmcopy = pd.read_csv(path)
     return hmmcopy
 
 

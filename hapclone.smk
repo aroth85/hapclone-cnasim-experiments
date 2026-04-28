@@ -74,7 +74,7 @@ rule hapclone_write_results:
     output:
         config.hapclone_results_file,
     conda:
-        "hapclone" #"envs/hapclone.yaml"
+        "envs/hapclone.yaml"
     resources:
         mem="16G",
         runtime="8h",

@@ -15,11 +15,10 @@ rule plot_data:
 rule plot_total:
     conda:
         "envs/benchmarking.yaml"
-    params:
+    input:
         c=config.chisel_calls_file,
         s=config.signals_output_template,
-        hm=config.hmmcopy_reads_template
-    input:
+        hm=config.hmmcopy_reads_template,
         ha=config.hapclone_default,
         p=config.cnasim_profiles,
         t=config.cnasim_tree
@@ -28,15 +27,14 @@ rule plot_total:
     output:
         config.total_plot
     shell:
-        "python scripts/plotting/total_plots.py -ha {input.ha} -p {input.p} -t {input.t} -s {params.s} -hm {params.hm} -c {params.c} -o {output}"
+        "python scripts/plotting/total_plots.py -ha {input.ha} -p {input.p} -t {input.t} -s {input.s} -hm {input.hm} -c {input.c} -o {output}"
 
 rule plot_baf:
     conda:
         "envs/benchmarking.yaml"
-    params:
-        c=config.chisel_calls_file,
-        s=config.signals_output_template
     input:
+        c=config.chisel_calls_file,
+        s=config.signals_output_template,
         ha=config.hapclone_default,
         p=config.cnasim_profiles,
         t=config.cnasim_tree
@@ -46,7 +44,7 @@ rule plot_baf:
         b=config.baf_plot,
         bm=config.baf_mirror_plot
     shell:
-        "python scripts/plotting/baf_plot.py -ha {input.ha} -p {input.p} -t {input.t} -s {params.s} -c {params.c} -b {output.b} -bm {output.bm}"
+        "python scripts/plotting/baf_plot.py -ha {input.ha} -p {input.p} -t {input.t} -s {input.s} -c {input.c} -b {output.b} -bm {output.bm}"
 
 rule plot_hapclone_adjusted:
     conda:
