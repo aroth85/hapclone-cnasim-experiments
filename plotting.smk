@@ -7,6 +7,8 @@ rule plot_data:
         t=config.cnasim_tree
     output:
         config.data_plot
+    resources:
+        mem="8G"
     shell:
        "python scripts/plotting/data_plot.py -ha {input.ha} -p {input.p} -t {input.t} -o {output}"
 
@@ -21,6 +23,8 @@ rule plot_total:
         ha=config.hapclone_default,
         p=config.cnasim_profiles,
         t=config.cnasim_tree
+    resources:
+        mem="8G"
     output:
         config.total_plot
     shell:
@@ -36,6 +40,8 @@ rule plot_baf:
         ha=config.hapclone_default,
         p=config.cnasim_profiles,
         t=config.cnasim_tree
+    resources:
+        mem="8G"
     output:
         b=config.baf_plot,
         bm=config.baf_mirror_plot
@@ -49,6 +55,8 @@ rule plot_hapclone_adjusted:
         ha=config.hapclone_default,
         p=config.cnasim_profiles,
         t=config.cnasim_tree
+    resources:
+        mem="8G"
     output:
         b=config.hapclone_baf_adj_plot,
         tp=config.hapclone_total_adj_plot
@@ -62,6 +70,8 @@ rule plot_phasing:
         ha=config.hapclone_input_file
     output:
         p=config.phasing_plot
+    resources:
+        mem="8G"
     shell:
         "python scripts/plotting/phasing_plot.py -ha {input.ha} -p {output.p}"
 
@@ -75,6 +85,8 @@ rule plot_hapclone_baf:
     output:
         b=config.hapclone_baf_plot,
         bm=config.hapclone_baf_mirror_plot
+    resources:
+        mem="8G"
     shell:
         "python scripts/plotting/hapclone_baf_plot.py -ha {input.ha} -p {input.p} -t {input.t} -b {output.b} -bm {output.bm}"
 
@@ -87,6 +99,8 @@ rule plot_hapclone_total:
         ha=expand(config.hapclone_results_file, hapclone_run_config=config.hapclone_cli_args, allow_missing=True)
     output:
         o=config.hapclone_total_plot
+    resources:
+        mem="8G"
     shell:
         "python scripts/plotting/hapclone_plots.py -ha {input.ha} -p {input.p} -t {input.t} -o {output.o}"
 
@@ -107,6 +121,8 @@ rule plot_results:
         mao=config.max_plot,
         bo=config.between_plot,
         wo=config.within_plot
+    resources:
+        mem="8G"
     shell:
         "python scripts/plotting/benchmark_plot.py "
         "-p {input.p} -po {output.po} "

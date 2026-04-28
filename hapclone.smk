@@ -55,14 +55,16 @@ rule hapclone_fit:
     resources:
         mem=lambda wildcards, attempt: "{}G".format(32 * attempt),
         runtime=lambda wildcards, attempt: "{}h".format(24 * attempt),
-    threads: config.hapclone_num_threads
+    threads: 
+        config.hapclone_num_threads
     shell:
         "hapclone fit "
         "-i {input.d} "
         "-o {output} "
         "-c {params.c} "
         "-t {threads} "
-        "{params.a}"
+        "{params.a} "
+        ">{log} 2>&1"
 
 
 rule hapclone_write_results:
