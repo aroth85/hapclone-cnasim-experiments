@@ -4,9 +4,9 @@ rule clustering_benchmark:
     input:
         ha=expand(config.hapclone_results_file, hapclone_run_config=config.hapclone_cli_args, replicate=config.replicate_ids, allow_missing=True),
         t=expand(config.cnasim_tree, replicate=config.replicate_ids, allow_missing=True),
-        hm=expand(config.hmmcopy_reads_template, replicate=config.replicate_ids, allow_missing=True),
+        hm=expand(config.hmmcopy_umap_template, replicate=config.replicate_ids, allow_missing=True),
         c=expand(config.chisel_clones_file, replicate=config.replicate_ids, allow_missing=True),
-        s=expand(config.signals_output_template, replicate=config.replicate_ids, allow_missing=True),
+        s=expand(config.signals_umap_template, replicate=config.replicate_ids, allow_missing=True),
     params:
         n=config.num_replicates
     output:
