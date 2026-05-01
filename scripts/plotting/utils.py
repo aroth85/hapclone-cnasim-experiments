@@ -58,13 +58,13 @@ def load_chisel_results(path, baf=False):
     return chisel
 
 def load_hmmcopy_results(path):
-    hmmcopy = pd.read_csv(path, sep="\t")
+    hmmcopy = pd.read_csv(path)
 
     return hmmcopy
 
 def load_signals_results(path):
     signals = pd.read_csv(
-    signals_file, sep="\t", usecols=["cell_id", "chr", "start", "state", "BAF"]
+    path, sep="\t", usecols=["cell_id", "chr", "start", "state", "BAF"]
     )
     signals = signals.sort_values(["cell_id", "chr", "start"])
 

@@ -40,3 +40,17 @@ rule signals:
         mem="64G",
     shell:
         "(Rscript scripts/signals/run.R {input.c} {input.b} {output}) >{log} 2>&1"
+
+rule umap:
+   input:
+      c=config.signals_input_template,
+      h=config.hmmcopy_reads_template
+   output:
+      st=config.signals_umap,
+      ht=config.hmmcopy_umap
+   conda:
+      "signals"
+   resources:
+      mem="16G"
+   shell:
+      "Rscript formatting/umap.R {input.c} {input.h} {output.st} {output.ht}"

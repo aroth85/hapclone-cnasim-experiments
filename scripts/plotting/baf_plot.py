@@ -34,7 +34,7 @@ def main(args):
     # Chisel
     if Path(args.chisel_file).exists():
         chisel = load_chisel_results(args.chisel_file, baf=True)
-        chisel_profile = ordered_profiles("CELL", "baf", chisel, leaves)
+        chisel_profile = ordered_profiles("CELL", "baf", chisel,  leaves)
         profiles.append(chisel_profile)
         profiles_mirror.append(1 - chisel_profile)
         methods.append("Chisel")

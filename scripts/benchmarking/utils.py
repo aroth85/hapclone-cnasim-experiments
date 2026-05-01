@@ -29,19 +29,19 @@ def load_chisel_results(path):
     )
     chisel[["A", "B"]] = chisel["HAP_CN"].str.split(r"|", expand=True)
     chisel["total"] = chisel["A"].astype(int) + chisel["B"].astype(int)
-
+    chisel['CELL'] = 'cell' + chisel['CELL'].astype(str)
     return chisel
 
 
 def load_chisel_clones(path):
     chisel = pd.read_csv(path, sep="\t")
+    chisel['#CELL'] = 'cell' + chisel['#CELL'].astype(str)
     return chisel
 
 
 def load_signals_results(path):
-    signals = pd.read_csv(
-        path, sep="\t", usecols=["cell_id", "chr", "start", "state", "BAF"]
-    )
+    signals = pd.read_csv(path, sep="\t")
+    print(signals.head())
     return signals
 
 

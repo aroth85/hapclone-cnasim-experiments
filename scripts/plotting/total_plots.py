@@ -45,6 +45,7 @@ def main(args):
     #HMMCopy
     if Path(args.hmmcopy_file).exists():
         hmmcopy = load_hmmcopy_results(args.hmmcopy_file)
+        hmmcopy_profile = ordered_profiles("cell_id", "state", hmmcopy, leaves)
         profiles.append(hmmcopy_profile)
         methods.append("HmmCopy")
 

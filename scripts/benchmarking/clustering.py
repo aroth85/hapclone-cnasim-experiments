@@ -51,7 +51,7 @@ def main(args):
 
         # Chisel
         if Path(chisel_file).exists():
-            chisel = load_chisel_results(chisel_file)
+            chisel = load_chisel_clones(chisel_file)
             chisel_results = benchmark_cluster(
                 chisel, distance_matrix, "CLUSTER", "#CELL"
             )
@@ -67,7 +67,8 @@ def main(args):
 
         # Signals
         if Path(signals_file).exists():
-            signals = load_signals_clones(signals_file)
+            signals = load_signals_results(signals_file)
+            print(signals.head())
             signals_results = benchmark_cluster(
                 signals, distance_matrix, "clone_id", "cell_id"
             )

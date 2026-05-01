@@ -25,10 +25,10 @@ ggplot(cluster$clustering, aes(x=umap1, y=umap2, colour=clone_id)) +
   theme(axis.text.x = element_blank(),
         axis.text.y = element_blank())
 
-ggsave(args[4])
+#ggsave(args[4])
 
 cluster <- umap_clustering(hmmcopy)
-write.table(cluster$clustering, file=args[5], sep='\t')
+write.table(cluster$clustering, file=args[4], sep='\t')
 ggplot(cluster$clustering, aes(x=umap1, y=umap2, colour=clone_id)) +
   # to create a scatterplot
   geom_point(size=0.5) +
@@ -36,4 +36,4 @@ ggplot(cluster$clustering, aes(x=umap1, y=umap2, colour=clone_id)) +
   theme(axis.text.x = element_blank(),
         axis.text.y = element_blank())
 
-ggsave(args[6])
+#ggsave(args[6])
