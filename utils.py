@@ -302,6 +302,10 @@ class ConfigManager(object):
     @property
     def hmmcopy_segs_template(self):
         return self.hmmcopy_results_dir.joinpath("segs.csv.gz")
+    
+    @property
+    def hmmcopy_umap_template(self):
+        return self.hmmcopy_results_dir.joinpath("umap.tsv")
 
     # HapClone
     @property
@@ -376,6 +380,10 @@ class ConfigManager(object):
     @property
     def signals_output_template(self):
         return self.signals_results_dir.joinpath("signals.tsv.gz")
+
+    @property
+    def signals_umap_template(self):
+        return self.signals_results_dir.joinpath("umap.tsv")
     
     # Plotting
     @property

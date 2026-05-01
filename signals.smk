@@ -46,8 +46,8 @@ rule umap:
       c=config.signals_input_template,
       h=config.hmmcopy_reads_template
    output:
-      st=config.signals_umap,
-      ht=config.hmmcopy_umap
+      st=config.signals_umap_template,
+      ht=config.hmmcopy_umap_template
    conda:
       "signals"
    resources:
